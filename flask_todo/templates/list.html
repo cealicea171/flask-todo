@@ -1,0 +1,19 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}ToDo List{% endblock %}
+
+{% block content %}
+
+<form action="/task" method="post" class="create_item">
+  <label>Enter Task: </label>
+  <input type="text" required>
+</form>
+
+<input type=submit value="Add to List!">
+
+<ul>
+  {% for item in list %}
+    <li>{{ i }}</li>
+  {% endfor %}
+<ul>
+{% endblock %}

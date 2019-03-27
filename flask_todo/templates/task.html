@@ -1,0 +1,25 @@
+
+{% extends "layouts/base.html" %}
+
+{% block title %}To-Do's{% endblock %}
+
+{% block content %}
+
+<form class="create_task" method="post">
+
+  <label>Enter Task- </label>
+
+  <input name="task" value="{{ request.form['task'] }}" type="text" required>
+
+<input type="submit" value="Check">
+
+</form>
+
+<ul class="tasks">
+  <li>Public Speaking Homework {{ timestamp }} </li>
+  <li>Call Dentist {{ timestamp }} </li>
+  <li>Pay Car Insurance {{ timestamp }} </li>
+
+<ul>
+
+{% endblock %}

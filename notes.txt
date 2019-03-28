@@ -1,0 +1,13 @@
+
+1-Shows a list of to-do items that have been stored in a database.
+
+2-Each item should have the following data:
+    It's text content
+    When it was created
+    If it's complete or not
+
+3-Uses a form to add new items to the above list.
+
+4-It should only ask for the text content of the new item.
+
+5-Can update existing items mark them as completed.

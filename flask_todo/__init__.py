@@ -1,7 +1,7 @@
 
 from flask import Flask, request,  render_template
-import time
-import datetime
+#import time
+#import datetime
 
 
 
@@ -26,37 +26,46 @@ def create_app(test_config=None):
 
 #########################################
 
-    @app.route('/task', methods=['POST', 'GET'])
+    @app.route('/create', methods=['POST', 'GET'])
     def create_task():
 
+
         if request.method == 'GET':
-            return render_template('task.html', task=None)
-
-        elif  request.method == 'POST':
-
-            task = request.form['task']
+            return render_template('create.html')
 
 
-            if not task:
-                return 'Error'
+        elif request.method == "POST":
 
-            timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            add_item = request.form["text"]
 
-            return render_template('task.html', timestamp=timestamp, task=task)
+            if add_item:
+                print("Create New Task: ", add_item)
+
+            if not add_item:
+                return 'Cannot Add Task'
+
+#time stamp is fucking shit up so took out for the moment..
+            #timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+            ##return render_template('create.html', timestamp=timestamp)
 
 
-        return render_template('task.html')
+
+
+        return render_template('create.html')
+
+
 
     @app.route('/update', methods=['GET', 'POST'])
     def update_task():
 
         if request.method == 'POST':
-            task = request.form['task']
+            update = request.form['update']
 
-            if not task:
+            if not update:
                 return 'Error'
 
 
-                return render_template('update.html')
+        return render_template('update.html')
 
     return app

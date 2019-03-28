@@ -1,14 +1,14 @@
-{% extends 'base.html' %}
+{% extends "layouts/base.html" %}
 
 {% block header %}
-  <h1>{% block title %}Edit Task "{{ post['task'] }}"{% endblock %}</h1>
+  <h1>{% block title %}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="task">
-    <label for="task">Task</label>
-    <input name="task" id="task"
-      value="{{ request.form['task'] or post['task'] }}" required>
+  <form method="post">
+    <label>Update Task:</label>
+    <input name="update" id="update"
+      value="{{ request.form['update']}}" required>
 
     <input type="submit" value="Save">
   </form>

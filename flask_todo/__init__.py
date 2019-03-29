@@ -1,8 +1,7 @@
 
 from flask import Flask, request,  render_template
-#import time
-#import datetime
-
+import time
+import datetime
 
 
 def create_app(test_config=None):
@@ -11,7 +10,6 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='dev',
         DB_NAME='flasktodo',
-        DB_USER='csetuser',
     )
 
     if test_config is None:
@@ -33,28 +31,28 @@ def create_app(test_config=None):
             #db.commit()
             #return redirect(url_for('blog.index'))
 
-#    return render_template('blog/update.html', post=post)
+#    return render_template ('blog/update.html', post=post)
 
-    @app.route('/', methods=['POST', 'GET'])
+    @app.route('/', methods=['POST','GET'])
     def index():
         if request.method == 'POST':
-            task = request.form["task"]
+            task_id = request.form["id"]
 
-            if task:
+            if task_id:
                 con = db.get_db()
                 cur = con.cursor()
-                cur.execute(
-                    "UPDATE task SET completed = True WHERE id = %s"
-                    (task)
-                )
-                con.commit()
-                return redirect(url_for('index.html'))
+                cur.execute("SELECT * FROM tasks;")
+                tasks = cur.fetchall()
+                #method fetches all (or all remaining) rows of a query result set and returns a list of tuples.
+                con.close()
+                cur.close()
+                
 
         return render_template('index.html')
 
 #########################################
 
-    @app.route('/create', methods=['POST', 'GET'])
+    @app.route('/create', methods=['GET', 'POST'])
     def create_task():
 
 
@@ -64,25 +62,28 @@ def create_app(test_config=None):
 
         elif request.method == "POST":
 
-            add_task = request.form["text"]
+            new_task = request.form["task"]
 
 
-            if add_task:
+            if new_task:
                 date = datetime.datetime.now()
                 con = db.get_db()
                 cur = con.cursor()
                 cur.execute(
-                    "INSERT INTO tasks(id, task, created_at, completed) VALUES (%s, %s, %s,%s)",
-                    ()
+                    "INSERT INTO tasks(task, created_at, completed) VALUES (%s, %s, %s);",
+                    (new_task, date, False))
+
+                con.commit()
+                cur.close()
 
 
-                if not add_item:
-                    return 'Cannot Add Task'
+                if not new_task:
+                    return 'Error'
 
 #time stamp is fucking shit up so took out for the moment..
             #timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-            ##return render_template('create.html', timestamp=timestamp)
+            return render_template('create.html', date, task=task)
 
 
 

@@ -6,16 +6,15 @@
 
 <form class="create_task" method="post">
 
-  <label>Enter Task:
-     <input type="text" name="text" id="text"/>
-  </label>
+  <label>Enter Task: </label>
+
+  <input name="new_task" value="{{ request.form['task'] }}" type="text">
   <input type="submit" value="Add To-Do">
+
 </form>
 
-<ul class="task_list">
-  <li>Public Speaking Homework {{ timestamp }} </li>
-  <li>Call Dentist {{ timestamp }} </li>
-  <li>Pay Car Insurance {{ timestamp }} </li>
-</ul>
+<form action="http://127.0.0.1:5000" >
+<input type="submit" value="Check Your Tasks" />
+</form>
 
-    {% endblock %}
+{% endblock %}

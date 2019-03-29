@@ -10,9 +10,7 @@ def get_db():
     if 'db' not in g:
         #open a connection save it and then close
         g.db = psycopg2.connect(
-        f"dbname={current_app.config['DB_NAME']}",
-        f"dbuser={current_app.config['DB_USER']}",
-        )
+        f"dbname={current_app.config['DB_NAME']}",)
 
 
     return g.db

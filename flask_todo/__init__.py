@@ -35,20 +35,19 @@ def create_app(test_config=None):
 
     @app.route('/', methods=['POST','GET'])
     def index():
-        if request.method == 'POST':
-            task_id = request.form["id"]
 
-            if task_id:
-                con = db.get_db()
-                cur = con.cursor()
-                cur.execute("SELECT * FROM tasks;")
-                tasks = cur.fetchall()
+        if request.method == 'GET':
+
+            con = db.get_db()
+            cur = con.cursor()
+            cur.execute("SELECT * FROM tasks;")
+            tasks = cur.fetchall()
                 #method fetches all (or all remaining) rows of a query result set and returns a list of tuples.
-                con.close()
-                cur.close()
-                
+            con.close()
+            cur.close()
 
-        return render_template('index.html')
+
+        return render_template('index.html',tasks=tasks)
 
 #########################################
 
@@ -56,13 +55,9 @@ def create_app(test_config=None):
     def create_task():
 
 
-        if request.method == 'GET':
-            return render_template('create.html')
+        if request.method == "POST":
 
-
-        elif request.method == "POST":
-
-            new_task = request.form["task"]
+            new_task = request.form["new_task"]
 
 
             if new_task:
@@ -82,9 +77,6 @@ def create_app(test_config=None):
 
 #time stamp is fucking shit up so took out for the moment..
             #timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-            return render_template('create.html', date, task=task)
-
 
 
 

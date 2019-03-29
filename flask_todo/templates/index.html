@@ -4,9 +4,17 @@
 
 {% block content %}
 <p>Welcome to your ToDo App..</p>
+<p>Here is your Tasks</p>
+
+<ul>
+{% for new_task in task %}
+  <li>{{ new_task[1] }} {{ new_task[2] }}</li>
+{% endfor %}
+</ul>
 
 <form action="http://127.0.0.1:5000/create" >
 <input type="submit" value="Add New Task" />
 </form>
+
 
 {% endblock %}

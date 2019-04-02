@@ -7,13 +7,13 @@
 <p>Here is your Tasks</p>
 
 <ul>
-{% for new_task in task %}
+{% for new_task in tasks %}
   <li>{{ new_task[1] }} {{ new_task[2] }}</li>
 {% endfor %}
 </ul>
 
 <form action="http://127.0.0.1:5000/create" >
-<input type="submit" value="Add New Task" />
+<input type="submit" value="Add New Tasks!:)" />
 </form>
 
 

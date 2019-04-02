@@ -33,7 +33,7 @@ def create_app(test_config=None):
 
 #    return render_template ('blog/update.html', post=post)
 
-    @app.route('/', methods=['POST','GET'])
+    @app.route('/', methods=['GET','POST'])
     def index():
 
         if request.method == 'GET':
@@ -43,8 +43,9 @@ def create_app(test_config=None):
             cur.execute("SELECT * FROM tasks;")
             tasks = cur.fetchall()
                 #method fetches all (or all remaining) rows of a query result set and returns a list of tuples.
-            con.close()
             cur.close()
+            con.close()
+
 
 
         return render_template('index.html',tasks=tasks)
@@ -61,19 +62,23 @@ def create_app(test_config=None):
 
 
             if new_task:
-                date = datetime.datetime.now()
                 con = db.get_db()
                 cur = con.cursor()
+                date = datetime.datetime.now()
                 cur.execute(
                     "INSERT INTO tasks(task, created_at, completed) VALUES (%s, %s, %s);",
                     (new_task, date, False))
 
                 con.commit()
                 cur.close()
+                con.close()
 
 
                 if not new_task:
                     return 'Error'
+
+                return render_template('create.html', date=date, new_task=new_task)
+
 
 #time stamp is fucking shit up so took out for the moment..
             #timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
